@@ -4,32 +4,31 @@
 #include "stdafx.h"
 #include "stdio.h"
 
-/*
-int _tmain(int argc, _TCHAR* argv[])
-{
-	return 0;
-}
-*/
+int power(int m, int n);
 
 
 int main()
 {
 	int n;
 	
-	int fahr, celsius;
-	int lower, upper, step;
+	int i;
 
-	lower = 0;
-	upper = 300;
-	step = 20;
-
-	fahr = upper;
-	while (fahr >= lower)
+	for (i = 0; i < 10; ++i)
 	{
-		celsius = 5 * (fahr - 32) / 9;
-		printf("%d\t%d\n",fahr,celsius);
-		fahr = fahr - step;
+		printf("%d %d %d\n", i, power(2,i), power(-3, i));
 	}
 
+
 	scanf("%d",&n);
+		return 0;
+}
+
+int power(int base, int n)
+{
+	int i, p;
+
+	p = 1;
+	for (i = 1; i <= n; ++i)
+		p = p * base;
+	return p;
 }
