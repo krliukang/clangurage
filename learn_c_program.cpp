@@ -4,31 +4,50 @@
 #include "stdafx.h"
 #include "stdio.h"
 
-int power(int m, int n);
+#define MAXLINE 10  //控制一行有多少个字符
 
+int getline(char s[], int lim);     //从一个输入的文本中得到lim个字符放入s数组中
+int strindex(char s[], char t[]);   //将s数组中的字符与t中的字符进行比较，相同时输出有lim个字符的行
+
+char pattern[] = "ould";
 
 int main()
 {
-	int n;
-	
-	int i;
+	char line[MAXLINE];
+	int found = 0;
 
-	for (i = 0; i < 10; ++i)
-	{
-		printf("%d %d %d\n", i, power(2,i), power(-3, i));
-	}
-
-
-	scanf("%d",&n);
-		return 0;
+	while (getline(line, MAXLINE) > 0)
+		if (strindex(line, pattern) >= 0)
+		{
+			printf("%s", line);
+			found++;
+		}
+	return found;
 }
 
-int power(int base, int n)
+int getline(char s[], int lim)
 {
-	int i, p;
+	int c, i;
+	
+	i = 0;
+	while (--lim > 0 && (c = getchar()) != EOF && c != '\n')
+		s[i++] = c;
+	if (c == '\n')
+		s[i++] = c;
+	s[i] = '\0';
+	return i;
+}
 
-	p = 1;
-	for (i = 1; i <= n; ++i)
-		p = p * base;
-	return p;
+int strindex(char s[], char t[])
+{
+	int i, j, k;
+
+	for (i = 0; s[i] != '\0'; i++)
+	{
+		for (j = i, k = 0; t[k] != '\0' && s[j] == t[k]; j++, k++)
+			;
+		if (k > 0 && t[k] == '\0')
+			return i;
+	}
+	return -1;
 }
